@@ -59,6 +59,7 @@
             <artifactId>aws-java-sdk-ses</artifactId>
             <version>1.12.195</version>
         </dependency>
+
     </dependencies>
 
 
