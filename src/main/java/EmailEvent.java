@@ -1,4 +1,5 @@
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SNSEvent;
@@ -24,10 +25,9 @@ public class EmailEvent implements RequestHandler<SNSEvent, Object> {
         String token = arr[1];
         String finalToken = "http://prod.kaifengruan.me/v1/verifyUserEmail?email=" + email + "&token=" + token;
         AmazonSimpleEmailService client =
-                AmazonSimpleEmailServiceClientBuilder
-                        .standard()
-                        .withCredentials(new InstanceProfileCredentialsProvider(false))
-                        .build();
+                AmazonSimpleEmailServiceClientBuilder.standard()
+                        .withRegion(Regions.US_WEST_1).build();
+               
         SendEmailRequest request = new SendEmailRequest()
                 .withDestination(new Destination().withToAddresses(email))
                 .withMessage(new Message()
