@@ -26,8 +26,8 @@ public class EmailEvent implements RequestHandler<SNSEvent, Object> {
         String finalToken = "http://prod.kaifengruan.me/v1/verifyUserEmail?email=" + email + "&token=" + token;
         AmazonSimpleEmailService client =
                 AmazonSimpleEmailServiceClientBuilder.standard()
-                        .withRegion(Regions.US_WEST_1).build();
-               
+                        .withRegion(Regions.US_EAST_1).build();
+
         SendEmailRequest request = new SendEmailRequest()
                 .withDestination(new Destination().withToAddresses(email))
                 .withMessage(new Message()
