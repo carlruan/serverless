@@ -2,7 +2,7 @@ name: Continue Deploy Amazon Lambda Function
 
 on:
   pull_request:
-    branches: [ a09 ]
+    branches: [ main ]
     types: [closed]
 
 jobs:
