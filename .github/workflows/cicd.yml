@@ -1,0 +1,33 @@
+name: Continue Deploy Amazon Lambda Function
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [closed]
+
+jobs:
+  maven_build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+    
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
+
+      - name: update
+        run: |
+          aws lambda update-function-code --function-name csye6225Lambda --zip-file fileb://./target/serverless-1.0-SNAPSHOT.jar
