@@ -21,7 +21,7 @@ public class EmailEvent implements RequestHandler<SNSEvent, Object> {
         String email = arr[0];
         String token = arr[1];
         String finalToken = "http://prod.kaifengruan.me/v1/verifyUserEmail?email=" + email + "&token=" + token;
-        String SUBJECT = "Email Verification for opening accout";
+        String SUBJECT = "Email Verification for opening account";
         String HTMLBODY = "<h1>Email Verification</h1>"
                 + "<h2>Hi, please click the link below to verify your account!</h2>"
                 + "<p><a href="+ finalToken +">"+ finalToken +"</a></p>";
